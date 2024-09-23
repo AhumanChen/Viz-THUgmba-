@@ -1,5 +1,7 @@
-# Data Visualization Analysis
 Chen
+TungHai University, Taiwan
+# Data Visualization Analysis
+
 ## Information
 
 Graphical Data Analysis is useful for data cleaning, exploring data structure, detecting outliers and unusual groups, identifying trends and clusters, spotting local patterns, evaluating modeling output, and presenting results. It is essential for exploratory data analysis, data mining, and network analysis. The primary focus of this course is to equip students with the necessary knowledge and skills to utilize computer software, such as Python, R, Jamovi, JASP, and Excel, to analyze and visualize data using graphical displays. By using real datasets, students will learn how graphic displays can reveal hidden patterns and trends in data that are not always apparent through traditional statistical methods. The course will cover a range of topics related to Graphical Data Analysis, including data visualization principles, statistical graphics, exploratory data analysis, and data preparation. By the end of the course, students will have a solid understanding of these concepts and will be able to apply them to a variety of real-world data analysis problems.
