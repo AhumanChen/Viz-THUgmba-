@@ -1,0 +1,95 @@
+---
+title: "Iris"
+author: "Chen"
+format: html
+editor: visual
+eval: false
+---
+
+This is a R code to visualize **Iris dataset** using the `ggplot2` package, with the following features:
+
+------------------------------------------------------------------------
+
+## **Step-by-Step Explanation:**
+
+### *1.Load Required Library*
+
+```{R}
+library(ggplot2)
+```
+
+-   `ggplot2`: A popular package for creating elegant and customizable visualizations in R.
+
+------------------------------------------------------------------------
+
+### *2. Create the Initial Plot*
+
+```{R}
+iris_plot <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point() +
+  facet_grid(. ~ Species)
+```
+
+-   `ggplot(iris, aes(...))`:
+    -   Initializes the plot using the `iris` dataset.
+    -   Maps the `Sepal.Length` to the x-axis and `Sepal.Width` to the y-axis.
+-   `geom_point()`:
+    -   Adds scatter points to the plot.
+-   `facet_grid(. ~ Species)`:
+    -   Splits the plot into separate panels for each `Species` (setosa, versicolor, virginica).
+
+------------------------------------------------------------------------
+
+### *3. Create a Data Frame for Custom Labels*
+
+```{R}
+f_labels <- data.frame(Species = c("setosa", "versicolor", "virginica"), 
+                       label = c("Setosa", "Versicolor", "Virginica"))
+```
+
+-   f_labels:
+    -   A data frame that contains custom labels (label) for each Species.
+
+------------------------------------------------------------------------
+
+### *4. Add Custom Labels to the Plot*
+
+```{R}
+iris_plot +
+  geom_text(x = 7, y = 4, aes(label = label), data = f_labels)
+```
+
+-   geom_text(...):
+    -   Adds text labels to the plot.
+    -   x = 7, y = 4: Specifies the position for the labels in each facet.
+    -   aes(label = label): Maps the label column from f_labels to the text labels.
+
+------------------------------------------------------------------------
+
+### *5. Add Title and Axis Labels*
+
+```{R}
+labs(title = 'Iris', 
+     x = 'Sepal length', 
+     y = 'Sepal width',
+     caption = 'By James, DV, THU, 2024')
+```
+
+-   labs(...):
+    -   Sets the plot’s title (title), x-axis label (x), y-axis label (y), and a caption (caption).
+
+------------------------------------------------------------------------
+
+### *6. Customize Plot Theme*
+
+```{R}
+theme(plot.title = element_text(hjust = 0.5, size = 20))
+```
+
+-   theme(...):
+    -   Modifies visual properties of the plot.
+    -   plot.title = element_text(hjust = 0.5, size = 20):
+        -   Centers the title (hjust = 0.5).
+        -   Increases the title font size to 20.
+
+------------------------------------------------------------------------
