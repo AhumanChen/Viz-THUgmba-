@@ -121,12 +121,12 @@ library(ggplot2)
 
 # Basic plot with borders between bars
 ggplot(data = faithful, aes(x = waiting)) +
-  geom_histogram(binwidth = 2, fill = "gray40", color = "black") +  # Add black borders
+  geom_histogram() +  # Add black borders
   
   # Modify labels
   labs(
     title = "Old Faithful Geyser",    # Title
-    x = "waiting",                    # X-axis label
+    x = "Waiting",                    # X-axis label
     y = "Count",                      # Y-axis label
     caption = "By Chen, Data Visualization Course, Tunghai University, 2024"
   ) +
@@ -137,3 +137,6 @@ ggplot(data = faithful, aes(x = waiting)) +
     axis.title.y = element_text(size = 12)              # Adjust y-axis label size
   )
 
+
+ggplot(faithful, aes(x = waiting))+
+  geom_histogram(binwidth = 5, fill = 'white', colour = "black")
