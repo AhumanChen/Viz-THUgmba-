@@ -17,7 +17,7 @@ library(palmerpenguins)
 
 **Quarto** _enables_ you to `weave` together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
 
-[Tunghai University](https://quarto.org/docs/tools/rstudio.html)
+[Quarto](https://quarto.org/docs/tools/rstudio.html)
 
 ## Meet the penguins
 

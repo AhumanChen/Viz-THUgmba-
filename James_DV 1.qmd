@@ -1,0 +1,73 @@
+---
+title: 'Data Visualization Analysis'
+author: 'James'
+date: '2024/01/01'
+toc: true
+number-sections: true
+format: pdf
+---
+
+## Introduction
+
+This tutorial is designed to help you learn data visualization analysis by providing simple and useful information in a way that is easy to follow and understand.
+
+## Preparation
+
+In order to draw a chart, we need to include the required packages for visualization and dataset. For example, `ggplot2` package is for drawing charts and `gcookbook` is for using `pg_mean` dataset.
+
+```{r}
+library(ggplot2)
+library(gcookbook)
+```
+
+## Bar chart
+
+In this section, we will draw a bar chart using `pg_mean` dataset. The dataset has two columns: `group`, `weight`.
+
+```{r}
+pg_mean
+```
+
+This dataset compares the weight across three groups:
+
+- `ctrl`: Control group (baseline, weight = 5.032).
+- `trt1`: Treatment 1 group (weight = 4.661).
+- `trt2`: Treatment 2 group (weight = 5.526).
+
+```{r}
+ggplot(pg_mean, aes(x = group, y = weight)) +
+  geom_col()
+```
+
+It initializes a ggplot with the dataset `pg_mean`.
+
+`aes(x = group, y = weight)` specifies the aesthetics:
+
+- `x = group`: Assign the `group` variable to the x-axis (categorical data, such as `ctrl, trt1, trt2`).
+- `y = weight`: Assign the `weight` variable to the y-axis (numerical data).
+
+`geom_col()`:
+
+- Adds a column geometry to the plot.
+- `geom_col()` creates bars where the height of each bar corresponds to the value of weight for each group.
+
+
+## Bar chart with color
+
+## Line chart
+
+## Histogram
+
+## Correlation chart
+
+## Correlation chart: Color by group
+
+## Multigroup histogram
+
+## Density chart
+
+## Histogram and Density chart
+
+## Box plot
+
+
