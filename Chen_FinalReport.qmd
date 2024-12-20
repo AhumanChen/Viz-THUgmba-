@@ -1,0 +1,159 @@
+---
+title: "Data Visualization Analysis"
+author: "Chen"
+date: "2024/01/01"
+number-sections: true
+format: pdf
+prefer-html: false
+---
+
+## Introduction
+
+This tutorial is designed to help you learn data visualization analysis by providing simple and useful information in a way that is easy to follow and understand.
+
+## Preparation
+
+In order to draw a chart, we need to include the required packages for visualization and dataset. For example, `ggplot2` package is for drawing charts, `gcookbook` is for using `pg_mean` dataset, and `palmerpenguins` provides the `penguins` dataset.
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(gcookbook)
+library(dplyr)         # Provides %>% operator
+library(palmerpenguins) # Provides penguins dataset
+library(tidyr)         # Provides functions for reshaping data
+library(fmsb)          # For radar charts
+library(tibble)        # Provides column_to_rownames()
+```
+
+## Bar Chart
+
+In this section, we will draw a bar chart using `pg_mean` dataset. The dataset has two columns: `group`, `weight`.
+
+```{r}
+pg_mean
+```
+
+This dataset compares the weight across three groups:
+
+- `ctrl`: Control group (baseline, weight = 5.032).
+- `trt1`: Treatment 1 group (weight = 4.661).
+- `trt2`: Treatment 2 group (weight = 5.526).
+
+```{r, fig.cap="Bar Chart Example"}
+ggplot(pg_mean, aes(x = group, y = weight)) +
+  geom_col()
+```
+
+## Bar Chart with Color
+
+```{r, fig.cap="Bar Chart by Species"}
+# Sample data
+data <- penguins %>% filter(!is.na(body_mass_g))
+
+# Bar chart by species
+ggplot(data, aes(x = species, fill = species)) +
+  geom_bar() +
+  labs(title = "Bar Chart by Species", x = "Species", y = "Count")
+```
+
+## Line Chart
+
+```{r, fig.cap="Line Chart"}
+# Sample data
+line_data <- tibble(
+  x = 1:100,
+  y = cumsum(rnorm(100))
+)
+
+# Line chart
+ggplot(line_data, aes(x = x, y = y)) +
+  geom_line(color = "blue") +
+  labs(title = "Line Chart", x = "X-axis", y = "Y-axis")
+```
+
+## Histogram
+
+```{r, fig.cap="Histogram of Body Mass"}
+# Histogram of penguin body mass
+ggplot(data, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 100, fill = "steelblue", color = "black") +
+  labs(title = "Histogram of Body Mass", x = "Body Mass (g)", y = "Frequency")
+```
+
+## Advanced Bar Chart
+
+### Grouped Bar Chart
+
+```{r, fig.cap="Grouped Bar Chart"}
+# Sample data
+data_grouped <- data %>% group_by(species, island) %>% summarise(mean_mass = mean(body_mass_g, na.rm = TRUE))
+
+# Grouped bar chart
+ggplot(data_grouped, aes(x = species, y = mean_mass, fill = island)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Grouped Bar Chart", x = "Species", y = "Mean Body Mass (g)")
+```
+
+## Scatter Plot with Regression Line
+
+```{r, fig.cap="Scatter Plot with Regression Line"}
+# Scatter plot with regression line
+ggplot(data, aes(x = body_mass_g, y = flipper_length_mm)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Scatter Plot with Regression Line", x = "Body Mass (g)", y = "Flipper Length (mm)")
+```
+
+## Faceted Plots
+
+### Faceted Scatter Plot
+
+```{r, fig.cap="Faceted Scatter Plot by Species"}
+# Faceted scatter plot by species
+ggplot(data, aes(x = body_mass_g, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  facet_wrap(~species) +
+  labs(title = "Faceted Scatter Plot by Species", x = "Body Mass (g)", y = "Flipper Length (mm)")
+```
+
+## Box Plot with Jitter
+
+```{r, fig.cap="Box Plot with Jitter"}
+# Box plot with jittered points
+ggplot(data, aes(x = species, y = body_mass_g, fill = species)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  labs(title = "Box Plot with Jitter", x = "Species", y = "Body Mass (g)")
+```
+
+## Heatmap
+
+```{r, fig.cap="Heatmap of Mean Body Mass"}
+# Create heatmap data
+data_heatmap <- data %>% group_by(species, island) %>% summarise(mean_mass = mean(body_mass_g, na.rm = TRUE))
+
+# Heatmap
+ggplot(data_heatmap, aes(x = species, y = island, fill = mean_mass)) +
+  geom_tile() +
+  labs(title = "Heatmap of Mean Body Mass", x = "Species", y = "Island")
+```
+
+## Radar Chart
+
+### Using Reshaped Data
+
+```{r, fig.cap="Radar Chart Example", warning=FALSE}
+# Create radar chart data
+data_radar <- data %>%
+  group_by(species) %>%
+  summarise(across(where(is.numeric), mean, na.rm = TRUE)) %>%
+  column_to_rownames(var = "species")
+data_radar <- rbind(max = apply(data_radar, 2, max), min = apply(data_radar, 2, min), data_radar)
+
+# Radar chart
+radarchart(data_radar, axistype = 1, title = "Radar Chart Example")
+```
+
+## Conclusion
+
+This tutorial provided an overview of various visualization techniques in R, from basic plots to advanced visualizations. By applying these methods, you can explore, analyze, and communicate data effectively.
